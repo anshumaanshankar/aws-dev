@@ -1,3 +1,10 @@
+## TOPICS COVERED
+ - AWS accounts
+ - IAM
+ - MFA
+ - Access keys
+ - using AWS via Command Line Interface
+
 ## AWS accounts
 
 - An AWS account is a container for users and resources. Each account is made with an account name, email ID and credit card.
@@ -58,4 +65,13 @@ inherent (fingerprint, face scan, voice scan), location(physical or network loca
 - IAM users are the only identities that use access keys (roles do not), except for the root user. Using these for root though is not advised 
 
 
-## - credential leak: when both username and password are leaked. username alone is not a leak
+### - credential leak: when both username and password are leaked. username alone is not a leak
+
+
+## ACCESSING AWS VIA CLI
+
+- After installing, we can use the following command to configure a profile:
+    - aws configure --profile *profilename*
+
+- We can check for any existing s3 buckets in a given profile using the command:
+    - aws s3 ls --profile *profilename*
