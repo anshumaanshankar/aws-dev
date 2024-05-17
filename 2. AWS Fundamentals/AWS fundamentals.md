@@ -2,7 +2,7 @@
 - Public vs Private Services
 - Global Infrastructure
 - VPC Basics
-
+- EC2
 
 ## Public v Private Services
 **TLDR**: There are 3 different network zones: Public internet, AWS public zones, AWS private zones. 
@@ -41,3 +41,10 @@
     - Each AZ gets a /20 subnet of the VPC
     - It comes with an internet gateway, security group and NACL
     - anything deployed in a subnet has a public IPv4 address
+
+
+## EC2
+- its a private AWS service
+- provides access to virtual machines called instance which is launched inside a subnet. Thus, its AZ resilient.
+- 
+
