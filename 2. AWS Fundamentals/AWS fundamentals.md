@@ -44,7 +44,17 @@
 
 
 ## EC2
-- its a private AWS service
-- provides access to virtual machines called instance which is launched inside a subnet. Thus, its AZ resilient.
-- 
+- its a private AWS service that provides access to virtual machines called instance which is launched inside a subnet. 
+- An instance can be of different size and capabilities (GPUs, storage and networking etc)
+- an instance is billed by the second - charge for memory, storage and any extra
+- states of an instance:
+    - Running: Charged for memory, CPU, network, disc
+    - Stopped: Charged for disc because storage is still allocated for the instance
+    - Terminated: No charge. When an instance is terminated, all allocated storage is deleted
+- Connecting to EC2: Remote desktop protocol (port 3389) is used to connect to EC2 instances on windows. You can SSH (port 22) into an EC2 instance from linux.
+
+    
+
+
+
 
