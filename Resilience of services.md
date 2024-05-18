@@ -1,5 +1,6 @@
 SERVICE NAME | RESILIENCE TYPE
 -------------|----------------
-EC2          |   AZ
-VPC          |  REGION
 IAM          |  GLOBAL
+VPC          |  REGION
+S3           |  REGION
+EC2          |   AZ

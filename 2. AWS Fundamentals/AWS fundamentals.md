@@ -3,6 +3,7 @@
 - Global Infrastructure
 - VPC Basics
 - EC2
+- S3
 
 ## Public v Private Services
 **TLDR**: There are 3 different network zones: Public internet, AWS public zones, AWS private zones. 
@@ -54,7 +55,21 @@
 - Connecting to EC2: Remote desktop protocol (port 3389) is used to connect to EC2 instances on windows. You can SSH (port 22) into an EC2 instance from linux.
 
     
-
-
-
+## S3
+- public service (with permissions) that serves as a global storage platform
+- delivers two main things:
+    - Objects: Basically, files. Made up of two main components:
+        - Key: file name
+        - value: the contents of the object / the data. The size can be from 0b to 5TB
+        - other components include version ID, metadata, access control and subresources
+    - Buckets: 
+        - Container for objects that are created in specific regions. This means that the data inside a bucket has a primary home (that region). 
+        - IMPORTANT: Bucket names must be globally unique
+        - can hold unlimited number of objects (unlimited bytes of data)
+        - Bucket versioning prevents overwriting of objects that have the same name
+        - there is no hierarchy, all objects are listed at the same
+        - when we make objects with / (eg: /old/file1.jpg) at the beginning, S3 represents a folder but there actually is not there - folders are called object prefixes.
+        - 100 buckets per aws account (soft limit) upto 1000 buckets (hard limit)
+    - Its an object storage system, not files or blocks (can't be mounted as a mount point)
+    - Input and output data can be done with S3. All storage of data should go into S3 ideally. 
 
