@@ -70,6 +70,6 @@
         - there is no hierarchy, all objects are listed at the same
         - when we make objects with / (eg: /old/file1.jpg) at the beginning, S3 represents a folder but there actually is not there - folders are called object prefixes.
         - 100 buckets per aws account (soft limit) upto 1000 buckets (hard limit)
-    - Its an object storage system, not files or blocks (can't be mounted as a mount point)
-    - Input and output data can be done with S3. All storage of data should go into S3 ideally. 
+        - Its an object storage system, not files or blocks (can't be mounted as a mount point)
+        - Input and output data can be done with S3. All storage of data should go into S3 ideally. 
 
