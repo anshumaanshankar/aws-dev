@@ -3,16 +3,16 @@
 - IAM users and ARNs
 
 ## IAM identity policies
-policies are JSON documents that are a set of security statements attached to users, groups and roles. Policies are made of statements. Each statement includes:
+- policies are JSON documents that are a set of security statements attached to users, groups and roles. Policies are made of statements. Each statement includes:
     - Sid: informs the reader of what that statement does
     - Effect: Allow or deny. This controls what AWS does when the resource and action match.
     - Action: Action(s) performed on a resource. Using * means we can do all actions possible.
     - Resource: The resource we are allowing/deny access to
     
-    Different statements may allow and deny an action at the same time. In this case, the priority of effects come into play:
-    - Explicit deny
-    - Explicit allow
-    - Default deny 
+Different statements may allow and deny an action at the same time. In this case, the priority of effects come into play:
+- Explicit deny
+- Explicit allow
+- Default deny 
 
 ![alt text](<Screenshots/Screenshot 2024-05-20 at 3.50.17 PM.png>)
 
