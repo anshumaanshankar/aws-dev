@@ -1,6 +1,7 @@
 ## TOPICS COVERED
 - CloudFormation
 - Cloudwatch
+- Shared Responsibility Model
 
 ## CloudFormation
 - Lets you create, update and delete infrastructure using <ins>templates</ins> on AWS.
@@ -37,4 +38,6 @@ The above image shows the architecture of cloudwatch basics. CPU, memory and dis
 
 - Alarms: Created and configured to a metric. We can say that some things are not ok, which would trigger the alarm. Based on the trigger, an action is performed. Eg: the billing alarm we make. The third state of an alarm (ok/alarm) is insufficient data.
 
--
+## Shared Responsibility Model
+![alt text](<Screenshot 2024-05-20 at 1.28.20 PM.png>)
+The image above lists what part of the product AWS manage, and which elements you have to manage. 
