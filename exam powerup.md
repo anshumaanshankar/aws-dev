@@ -6,4 +6,7 @@
 - 100 buckets per aws account (soft limit) upto 1000 buckets (hard limit). If we have a lot of users, we can have prefixes to indicate the owner of content in a bucket, thereby allowing many users to use a single bucket.
 - ARNs uniquely identify a resource within AWS
 - AWS are responsible for the security of the cloud, the user/customer is responsible for security in the cloud. 
+- Policy document priority: explicit DENY, explicit ALLOW, default DENY
+- max of 5000 IAM users per account. For large no. users (eg. large companies / merges) we use IAM roles, not one user per person.
+- an IAM user can only be in <= 10 IAM groups.
 
