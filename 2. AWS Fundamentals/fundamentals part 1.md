@@ -11,7 +11,7 @@
     - AWS public zones host public services that can be accessed from anywhere with an internet connection and permissions (eg: S3). AWS public zones are connected to the internet, not a part of it.
     - AWS private zone hosts VPCs which hosts private services. These services can only be accessed from inside the VPC and by connecting to it. 
 
-![alt text](<Screenshot 2024-05-17 at 1.59.00 PM.png>)
+![alt text](<Screenshots/Screenshot 2024-05-17 at 1.59.00 PM.png>)
 
 ## AWS Global Infrastructure
 - Regions: AWS infrastructure in different parts in the world, connected using high speed networking links 
@@ -35,7 +35,7 @@
 - Every VPC is allocated a range of IP addresses (VPC CIDR - Classless Inter Domain Routing). Any communication with the VPC happens via the CIDR. Outgoing connections originate from the CIDR.
 - Custom VPCs can have many CIDRs, but the default has only one and its always 172.31.0.0/16. Each subnet of a VPC is in one AZ of the region and each use a part of the CIDR range. Image below shows a region with 3 AZs, each having a range of IPs from the CIDR range. 
 
-![alt text](<Screenshot 2024-05-17 at 2.47.06 PM.png>)
+![alt text](<Screenshots/Screenshot 2024-05-17 at 2.47.06 PM.png>)
 
 - **Summary of Default VPCs** :
     - One per region, can be removed and recreated
