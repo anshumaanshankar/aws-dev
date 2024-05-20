@@ -4,6 +4,7 @@
 - VPC Basics
 - EC2
 - S3
+- Cloudformation
 
 
 ## Public v Private Services

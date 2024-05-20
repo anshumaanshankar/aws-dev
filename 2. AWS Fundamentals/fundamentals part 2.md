@@ -75,4 +75,7 @@ The image above lists what part of the product AWS manage, and which elements yo
     - Used to prove domain ownership
     - Allow us to add text to a domain, to provide additional functionality. 
 
-
+- TTL (Time to Live)
+    - indicate how long records are cached for
+    - set by a domain owner
+    - Results of a query (reaching a server) is cached on the resolver server for that TTL. 
