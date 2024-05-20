@@ -1,23 +1,10 @@
 ## TOPICS COVERED
-- CloudFormation
 - Cloudwatch
 - Shared Responsibility Model
+- High Availability, Fault Tolerance and Disaster Recovery
+- Route 53
+- DNS Record Types
 
-## CloudFormation
-- Lets you create, update and delete infrastructure using <ins>templates</ins> on AWS.
-- Templates can be reused to make/delete/updates resources much faster than when done manually.
-- Templates are written in YAML or JSON.
-
-- **Components of a template**:
-    - Resources: that is what tells cloudformation what to do (Create/Update/Delete). This is the only mandatory part of the template.
-    - Description: allows the author add a description about what the template does. If we have a <ins>template format version</ins> (another field), the description must follow it.
-    - Metadata: controls the UI, among others.
-    - Parameters: Fields that prompt the user for more info, we can add criteria and default values of those parameters too.
-    - Mapping: allows lookup tables to be made. 
-    - Conditions: Allows decision making in the template - certain things only occur when conditions are met. 
-    - Outputs: once the template is made, we see outputs to show what is created / updated or deleted. For example, an instance ID of an EC2 instance that is made.
-
-- The example template used for the demo is in the same folder labeled ec2instance.yaml
 
 ## Cloudwatch
 - A product that collects and manages operational data.
@@ -41,3 +28,51 @@ The above image shows the architecture of cloudwatch basics. CPU, memory and dis
 ## Shared Responsibility Model
 ![alt text](<Screenshots/Screenshot 2024-05-20 at 1.28.20 PM.png>)
 The image above lists what part of the product AWS manage, and which elements you have to manage. 
+
+## High Availability, Fault Tolerance and Disaster Recovery
+
+**High Availability (HA)**: 
+- Aims to ensure an agreed level of optimal performance, usually uptime, for higher than a normal period. 
+- Its about maximizing a system's online time. 
+- User disruption is ok, because HA is not about avoiding it.
+- <ins>HA IS NOT ABOUT OPERATING THROUGH FAILURE</ins>
+
+**Fault Tolerance (FT)**:
+- The property of a system that enables it to operate properly in the event of failure of some of its components. 
+- The system is designed to work through failure with no disruption. 
+- Fault tolerance is one step above high availability. It accounts for high availability, but on top of that, it enables the system to work through the problem(s).
+- Harder to design, implement and costs more than HA. 
+
+**Disaster Recovery (DR)**:
+- what to do when HA and FT fail.
+- It takes into account what happens before (why the failure happens) and what to do after.
+- Ideas of a backup / resilience that are ready for whenever needed.
+- <ins>NEVER STORE THE BACKUP WITH THE MAIN SITE</ins>
+- DR prevents loss of things that are irreplaceable.
+- Cloud allows DR to be automated. 
+
+![alt text](<Screenshots/Screenshot 2024-05-20 at 1.50.58 PM.png>)
+
+## Route 53
+- Allows you to register domains
+- Creates and manages zone files in AWS: Hoseted on four managed name servers
+- Hosted zones can be public or private 
+
+## DNS Record Types
+
+- Nameserver Records:
+    - How delegation works in DNS
+    - Handles A records (matches host to ipv4 address) and AAAA records (matches host to ipv6 address)
+- CNAME Records:
+    - Allows host to host records
+    - Cnames point at other names (A or AAAA)
+- MX Records:
+    - How a server finds the mail server for a domain.
+    - Assume we are in the google.com zone.
+    - Two parts: priority and value.
+    - The value could be just a value (for eg: MX 10 mail). This means that the mail is in the same zone we are in. If we have a dot on the right (mail.otherdomain) this means that we are using a full domain name. 
+- TXT Records:
+    - Used to prove domain ownership
+    - Allow us to add text to a domain, to provide additional functionality. 
+
+
