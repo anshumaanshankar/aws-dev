@@ -5,6 +5,7 @@
 - EC2
 - S3
 
+
 ## Public v Private Services
 **TLDR**: There are 3 different network zones: Public internet, AWS public zones, AWS private zones. 
     - AWS public zones host public services that can be accessed from anywhere with an internet connection and permissions (eg: S3). AWS public zones are connected to the internet, not a part of it.
@@ -38,7 +39,7 @@
 
 - **Summary of Default VPCs** :
     - One per region, can be removed and recreated
-    - Default VPC CIDR is <ins>**172.31.0.0/16**</ins>
+    - Default VPC CIDR is <ins>172.31.0.0/16</ins>
     - Each AZ gets a /20 subnet of the VPC
     - It comes with an internet gateway, security group and NACL
     - anything deployed in a subnet has a public IPv4 address
@@ -70,6 +71,6 @@
         - there is no hierarchy, all objects are listed at the same
         - when we make objects with / (eg: /old/file1.jpg) at the beginning, S3 represents a folder but there actually is not there - folders are called object prefixes.
         - 100 buckets per aws account (soft limit) upto 1000 buckets (hard limit)
-        - Its an object storage system, not files or blocks (can't be mounted as a mount point)
-        - Input and output data can be done with S3. All storage of data should go into S3 ideally. 
+        - Its an object storage system, not files or blocks (can't be mounted as a mount point).
+
 
