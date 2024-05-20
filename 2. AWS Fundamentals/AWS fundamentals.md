@@ -31,14 +31,14 @@
 ## VPC (Tres important)
 - A VPC is made in one region for an AWS account. They are regionally resilient. 
 - **In a region, we can have 1 default VPC that comes preconfigured. We can have many custom VPCs, which we build end-end.**
-- Every VPC is allocated a range of IP addresses (VPC CIDR). Any communication with the VPC happens via the CIDR. Outgoing connections originate from the CIDR.
+- Every VPC is allocated a range of IP addresses (VPC CIDR - Classless Inter Domain Routing). Any communication with the VPC happens via the CIDR. Outgoing connections originate from the CIDR.
 - Custom VPCs can have many CIDRs, but the default has only one and its always 172.31.0.0/16. Each subnet of a VPC is in one AZ of the region and each use a part of the CIDR range. Image below shows a region with 3 AZs, each having a range of IPs from the CIDR range. 
 
 ![alt text](<Screenshot 2024-05-17 at 2.47.06 PM.png>)
 
 - **Summary of Default VPCs** :
     - One per region, can be removed and recreated
-    - Default VPC CIDR is 172.31.0.0/16
+    - Default VPC CIDR is <ins>**172.31.0.0/16**</ins>
     - Each AZ gets a /20 subnet of the VPC
     - It comes with an internet gateway, security group and NACL
     - anything deployed in a subnet has a public IPv4 address
