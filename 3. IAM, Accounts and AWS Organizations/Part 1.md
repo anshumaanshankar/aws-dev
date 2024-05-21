@@ -37,6 +37,7 @@ If a user's access to a resource is dependant on multiple policy documents, they
 - **Authorization** is IAM checking an individual's statement to allow or deny access to resources.
 
 **ARNs - Amazon Resource Names**: Uniquely identify resources in an AWS account. The general format of an ARN is shown below. For standard AWS, partition name is always AWS. Exceptions are in China where the partition would be AWS-CN for example. 
+
 ![alt text](<Screenshots/Screenshot 2024-05-20 at 4.23.34 PM.png>)
 
 The two ARNs shown below are different. The first accesses only the bucket, the second accesses only the objects inside it.
@@ -78,6 +79,8 @@ Two create/modify a bucket AND its objects, we would need both these ARNs. The d
 - These temp. credentials are similar to access keys, but the expire. <ins>They do not belong to the identity who uses them.</ins>
 - These credentials are requested by an identity (AWS or external)
 ![alt text](<Screenshots/Screenshot 2024-05-21 at 12.44.09 PM.png>)
+
+- Using the credentials returned to the user, they can access AWS services that are permitted via the role's permissions policy.
 
 ## Service Linked Roles
 ![alt text](<Screenshots/Screenshot 2024-05-21 at 12.33.22 PM.png>)
