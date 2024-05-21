@@ -1,4 +1,4 @@
-## TOPICS COVERED
+# TOPICS COVERED
 - AWS Organizations
 - Demo
 - Service Control Policies
