@@ -4,6 +4,8 @@
 - IAM Groups
 - IAM Roles
 - When to use IAM Roles
+- Security Token Service
+- Service Linked Roles
 
 ## IAM identity policies
 - policies are JSON documents made of permission statements attached to users, groups and roles. Each statement includes:
@@ -55,7 +57,7 @@ Two create/modify a bucket AND its objects, we would need both these ARNs. The d
 - Best for multiple principals (like many users/service accounts in the same aws user).
 - A role represents a level of access inside an AWS account. Mostly used short term by other identities for borrowed permissions.
 - IAM roles have two types of policies:
-    - trust: Determines which identities can assume that role. This may be users(people), services(EC2) in the same or other AWS accounts. Temporary credentials are given to identities that assume the role, created by Secure Token Service (sts).
+    - trust: Determines which identities can assume that role. This may be users(people), services(EC2) in the same or other AWS accounts. Temporary credentials are given to identities that assume the role, created by Secure Token Service (STS).
     - permissions: the accesses given/not given to identities assuming that role.
 
 ## When to use IAM roles
@@ -70,3 +72,13 @@ Two create/modify a bucket AND its objects, we would need both these ARNs. The d
     - Scales to high no. users.
 - cross-account access:
 ![alt text](<Screenshots/Screenshot 2024-05-21 at 11.44.12 AM.png>)
+
+## Security Token Service (STS)
+- Generates temporary credentials when the sts:AssumeRole call is made (when an IAM role is used to assign someone w that role)
+- These temp. credentials are similar to access keys, but the expire. <ins>They do not belong to the identity who uses them.</ins>
+- These credentials are requested by an identity (AWS or external)
+![alt text](<Screenshots/Screenshot 2024-05-21 at 12.44.09 PM.png>)
+
+## Service Linked Roles
+![alt text](<Screenshots/Screenshot 2024-05-21 at 12.33.22 PM.png>)
+
