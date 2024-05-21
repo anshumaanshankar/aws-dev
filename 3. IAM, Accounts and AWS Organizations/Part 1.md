@@ -1,6 +1,7 @@
 ## TOPICS COVERED
 - IAM identity policies
 - IAM users and ARNs
+- IAM Groups
 
 ## IAM identity policies
 - policies are JSON documents that are a set of security statements attached to users, groups and roles. Policies are made of statements. Each statement includes:
@@ -39,3 +40,10 @@ The two ARNs shown below are different. The first accesses only the bucket, the 
 
 Two create/modify a bucket AND its objects, we would need both these ARNs. The double colons indicate that those parameters need not be mentioned explicitly (as S3 buckets are globally unique). 
 
+## IAM Groups
+- Organizers or containers for IAM users. <ins> They cannot be logged into, have no credentials. </ins>
+- A user can be in upto 10 groups, but a group may have as many users as needed (5000 max users per account)
+- We can attach inline/managed policy to groups as well.
+- We cannot have groups inside groups. 
+- 300 groups per account (soft limit)
+- Groups cannot be referenced as a principal in a policy. That is, Resource access cannot be granted on groups.
