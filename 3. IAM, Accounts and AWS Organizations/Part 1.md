@@ -36,7 +36,7 @@ If a user's access to a resource is dependant on multiple policy documents, they
 
 - **Authorization** is IAM checking an individual's statement to allow or deny access to resources.
 
-**ARNs**: Uniquely identify resources in an AWS account. The general format of an ARN is shown below. For standard AWS, partition name is always AWS. Exceptions are in China where the partition would be AWS-CN for example. 
+**ARNs - Amazon Resource Names**: Uniquely identify resources in an AWS account. The general format of an ARN is shown below. For standard AWS, partition name is always AWS. Exceptions are in China where the partition would be AWS-CN for example. 
 ![alt text](<Screenshots/Screenshot 2024-05-20 at 4.23.34 PM.png>)
 
 The two ARNs shown below are different. The first accesses only the bucket, the second accesses only the objects inside it.
