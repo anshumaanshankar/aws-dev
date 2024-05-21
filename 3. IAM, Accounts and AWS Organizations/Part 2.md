@@ -41,7 +41,8 @@ Helps us deal with having many AWS accounts in the same company
 - <ins>They follow the same deny-allow-deny rule. </ins>
 
 #### Allow vs Deny List
-- deny list: When an SCP is enabled, a fullAWSAcess is automatically applied across the org. Meaning, we have full access atp. We have to explicitly deny something to prevent usage of something. 
+- deny list: When an SCP is enabled, a fullAWSAcess is automatically applied across the org. Meaning, we have full access atp. We have to explicitly deny something to prevent usage of something. An example of a deny list is present at [Open Deny List JSON](3. IAM, Accounts and AWS Organizations/deny_list.json)
+
 - allow list: This list has no fullAWSAccess on creation, meaning we initially start with implicit denies for everything. Anything needing access requires an explicit allow. <ins>More admin overhead</ins>.
 
 Benefits of deny list over allow is that we would have to allow access one by one as more services are made. Having the fullAWSAcess 
