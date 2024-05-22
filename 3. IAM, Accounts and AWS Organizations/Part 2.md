@@ -45,7 +45,7 @@ Helps us deal with having many AWS accounts in the same company
 
 - allow list: This list has no fullAWSAccess on creation, meaning we initially start with implicit denies for everything. Anything needing access requires an explicit allow. <ins>More admin overhead</ins>.
 
-Benefits of deny list over allow is that we would have to allow access one by one as more services are made. Having the fullAWSAcess 
+Benefits of deny list over allow is that we don't have to allow access one by one as more services are made. the fullAWSAccess takes care of that for us.  
 
 ## Cloudwatch Logs (cw logs)
 - public service that allows services to store, monitor and access logging data (information data with timestamp)

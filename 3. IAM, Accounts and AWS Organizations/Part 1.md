@@ -55,11 +55,12 @@ Two create/modify a bucket AND its objects, we would need both these ARNs. The d
 - Groups cannot be referenced as a principal in a policy. That is, Resource access cannot be granted on groups.
 
 ## IAM Roles
-- Best for multiple principals (like many users/service accounts in the same aws user).
 - A role represents a level of access inside an AWS account. Mostly used short term by other identities for borrowed permissions.
+- Best for multiple principals (like many users/service accounts in the same aws user).
+- Cannot be logged into
 - IAM roles have two types of policies:
-    - trust: Determines which identities can assume that role. This may be users(people), services(EC2) in the same or other AWS accounts. Temporary credentials are given to identities that assume the role, created by Secure Token Service (STS).
-    - permissions: the accesses given/not given to identities assuming that role.
+    - Trust: Determines which identities can assume that role. This may be users(people), services(EC2) in the same or other AWS accounts. Temporary credentials are given to identities that assume the role, created by Secure Token Service (STS).
+    - Permissions: the accesses given/not given to identities assuming that role.
 
 ## When to use IAM roles
 - Used when some services need access permissions to perform their job. 
