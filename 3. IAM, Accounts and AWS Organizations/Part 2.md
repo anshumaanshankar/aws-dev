@@ -47,7 +47,7 @@ Helps us deal with having many AWS accounts in the same company
 
 Benefits of deny list over allow is that we would have to allow access one by one as more services are made. Having the fullAWSAcess 
 
-## Cloudwatch Logs
+## Cloudwatch Logs (cw logs)
 - public service that allows services to store, monitor and access logging data (information data with timestamp)
 - Integration with some services (EC2, Lambda etc). These services automatically store data with cloudwatch logs.
 - Using the unified cloudwatch agent, we can log data into cloudwatch from external services.
@@ -56,3 +56,14 @@ Benefits of deny list over allow is that we would have to allow access one by on
 ![alt text](<Screenshots/Screenshot 2024-05-21 at 5.09.58 PM.png>)
 
 The architecture of cloudwatch is given above. All log events from the same source (say, an EC2 instance) are all stored in a logstream. We group same kind of information from various sources (different EC2 instances, say) in a log group. Log groups are where settings (retentions, permissions), metric filters are defined. These metric filters can be attached to alarms. 
+
+## Cloudtrail
+- Logs activities that interact with AWS services, each activity is called a cloudtrail event
+- 90 days worth of events are stored in Event history at no cost
+- We can create a trail to hold on to events for more than 90 days (put them in s3 or cw logs)
+- A trail logs events in an AWS region where its created, unless it is set to log events in multiple / all regions. 
+- Management and data events (if enabled) are captured by a trail. 
+- When we create a trail, we can store events in S3 buckets and we are only charged for the storage. 
+- Cloudtrail events can also be stored on cloudwatch logs, which we can use to search through it or use metric filters to take advantage of the data. cloudwatch logs is better than S3.
+- We can create a trail from the management account of an org to store all events of all accounts in that org.
+- True global services such as IAM, STS have events called global services events, which are stored in us-east-1 by default. 

@@ -9,4 +9,4 @@
 - Policy document priority: explicit DENY, explicit ALLOW, default DENY
 - max of 5000 IAM users per account. For large no. users (eg. large companies / merges) we use IAM roles, not one user per person.
 - an IAM user can only be in <= 10 IAM groups.
-
+- cloudtrail is NOT REALTIME, there may be a 15 min delay for data to appear in s3 or cw logs. 
