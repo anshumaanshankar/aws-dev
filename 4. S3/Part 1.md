@@ -10,30 +10,69 @@
 - Initially, only the root user has access to S3. 
 - Ways to grant permission to S3:
     1. S3 bucket policy: 
-        - A form of resource policy (policy attached to a resource, as opposed to an identity).
-        - Resource policies can allow access to a resource by identities in the same account, or a different account.
-        - Can allow/deny anonymous principals (those not authenticated by AWS)
+        - Resource policies - policy attached to a resource.
+        - Resource policies allow access to a resource by identities in the same account, a different account or anonymous principals (those not authenticated by AWS)
         - **Resource policies have a "principal" attribute, identity policies do not.**
+        - Putting a * on the principal allows anyone to access. For specific accounts, their arn is passed.
         - We can only have one policy on a bucket, but we can have many statements in that policy. 
-        - Access by AWS identities (both same and cross account) is dependent on both the individual's identity policy and the bucket policy. 
+        - Access by AWS identities (same, cross account) is dependent on both the individual's identity policy and the bucket policy. 
     2. Access Control Lists (ACLs):
         - Less flexible compared to resource/identity policies (only 5 functions).
     3. Block public access settings:
-        - Apply only to anon. principals attempting to access a bucket.
+        - Applicable only to anonymous principals attempting to access a bucket.
         - Overrides resource policies if you choose to block all access.
         - Options to block access granted by ACLs (One option per permutation on existing and new ACLs)
 
 ## Static Hosting
-- This allows access via http (great for stuff like blogs)
-- We need an index (pointed at an HTML object in s3 buckets) and error documents 
-- This enables a website endpoint is created, whose name depends on the bucketname and the region
-### Common uses of S3 in websites:
-1. Offloading: Storing media in an S3 bucket as opposed to a compute service. This saves $$.
-2. Out of band pages: Hosting pages (such as maintanence) on S3, as opposed to the server where the website is hosted. By changing the DNS, we can point viewers at this backup website if the server is down. 
+- Via HTML documents, we can have websites containing S3 buck objects (great for stuff like blogs)
+- We need an index and error HTML file, both of which should also be on the bucket. 
+- When static hosting is turned on for a bucket, we get a link that we can use to see our index and html pages.
+    ### Common uses of S3 in websites:
+    1. Offloading: Storing media in an S3 bucket as opposed to a compute service. This saves $$.
+    2. Out of band pages: Hosting pages (such as maintanence) on S3, as opposed to the server where the website is hosted. By changing the DNS, we can point viewers at this backup website if the server is down. 
 
-### Fees on S3:
-0. 5 gb of free storage, 20,000 get requests and 2000 put requests for free.
-1. Storing data, cost is per GB
-2. Transferring data into and out of a bucket , cost is per GB
-3. Requesting data from S3, cost is per 1000 operations
+    ### Fees on S3:
+    0. 5 gb of free storage, 20,000 get requests and 2000 put requests for free.
+    1. Storing data, cost is per GB
+    2. Transferring data into and out of a bucket , cost is per GB
+    3. Requesting data from S3, cost is per 1000 operations
+
+## Object Versioning and MFA delete
+### Object versioning
+- Happens at a bucket level. Once enabled, cannot be disabled. To bypass this, We can suspend a bucket if we want and then re-enable it.
+- Objects are overwritten when changes are made to it and versioning is off. If it is on, we create a new version of an object when changes are made (same name, new ID). 
+- When object is requested without ID, the most recent one is returned. We can request with ID.
+- When versioning is on and delete is requested without specifying ID, a delete marker is created. Delete marker hides all prev. versions of an object. 
+- Deleting the delete marker makes all versions accessible.  
+- <ins>To permanently delete, ensure the "show versions" toggle is on. To add delete marker, keep the toggle off.</ins> 
+
+### MFA delete
+- When enabled, we need MFA to change bucket's versioning state (suspended/active)
+- Needed to fully delete versions of an object.
+
+## Performance Optimization
+### Uploading data
+- **PUT uploads**: 
+    -   Happen in a single data stream. 
+    - If the stream fails, the upload fails and the process must be redone entirely. 
+    - It is also very slow. 
+    - 5gb data maximum happens in a single PUT upload.
+- **Multipart upload**: 
+    - Data is broken up on upload. Data has to be more than 100mb in size. 
+    - An upload can be split into <= 10,000 parts, each of size 5mb to 5gb. 
+    - If one part fails, only that part is restarted. 
+    - Higher transfer rate is seen
+
+### Accelerated Transfer
+When accelerated transfer is enabled on S3, Data uploaded by a user goes to the nearest, best performing AWS location to them rather than the S3 bucket where its supposed to go. Then, this data is sent over the AWS global network towards the s3 bucket. 
+
+This enables faster, better performing data transfer than if the data was sent via the public internet from source(user location) to destination (S3 bucket location).
+
+## Key Management Service (KMS)
+- Regional, public service used to create, store and manage encrypted keys (symmetric and asymmteric).
+- These keys are used to encrypt and decrypt data given by the user. The key itself is stored in an encrypted format on disc.
+- Physical key material held by KMS is used for encryption and decryption. This can be generated by KMS or imported.
+- Separate permissions are needed for all operations that KMS keys perform.
+- KMS keys can be used for data that is <= 4kb.
+- KMS keys create DataEncryptionKeys (DEKs) to handle data > 4kb. These keys are used bt the user or the service for data encryption and decryption. <ins>These keys are not stored </ins>. 2 versions of this key (plaintext and encrypted) are given to us. The encryption is done using the KMS.
 
