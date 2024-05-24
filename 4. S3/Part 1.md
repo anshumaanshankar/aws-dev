@@ -113,3 +113,13 @@ This enables faster, better performing data transfer than if the data was sent v
 - **Intelligent tiering**: Best for data where the pattern of usage changes / is unknown. Using one of the first two storage classes is better for frequently or infrequently accessed data.
 
 ![alt text](<Screenshots/Screenshot 2024-05-24 at 12.09.10 PM.png>)
+
+## Lifecycle Configuration
+- A set of rules that take actions based on conditions. Actions are transitions (change storage class) and expirations (delete objects). 
+- Works when versioning is enabled, but needs careful planning.
+- For transitioning, we only move from more frequent access to less frequent (downwards). Note in the image below, <ins>we cannot move from One Zone-IA to glacier-instant.</ins> All other levels can go to all others. 
+- Objects must be in S3-standard for 30 days if uploaded there, before moving it down using lifecycle transition.
+- When we make a rule to move an object to standard-IA or one zone IA, we need to wait an additional 30 days before moving it to glacier using the same rule. If we use two rules, we can move it down without those 30 days.
+
+![alt text](<Screenshots/Screenshot 2024-05-24 at 12.19.45 PM.png>)
+
