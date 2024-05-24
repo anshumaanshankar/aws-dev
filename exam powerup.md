@@ -14,3 +14,4 @@
 - Versioning on a bucket, once enabled can never be disabled. Only suspending a bucket is possible atp.
 - S3 buckets having dots in their name and not conforming to DNS norms cannot be transfer accelerated. 
 - KMS provides a FIPS 140-2 Level 2 security standard.
+- AES-256 is the Encryption type on S3 for SSE

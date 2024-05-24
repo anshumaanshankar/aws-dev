@@ -5,6 +5,7 @@
 - Performance optimization
 - Key Management Service (KMS)
 - Object Encryption CSE/SSE
+- S3 Bucket Keys
 
 ## Security
 - Initially, only the root user has access to S3. 
@@ -76,3 +77,26 @@ This enables faster, better performing data transfer than if the data was sent v
 - KMS keys can be used for data that is <= 4kb.
 - KMS keys create DataEncryptionKeys (DEKs) to handle data > 4kb. These keys are used bt the user or the service for data encryption and decryption. <ins>These keys are not stored </ins>. 2 versions of this key (plaintext and encrypted) are given to us. The encryption is done using the KMS.
 
+## Server Side Encryption (SSE) and Client Side Encryption (CSE)
+- <ins> SSE is mandatory on S3 </ins>
+- Data transfered to and from s3 to a user is always encrypted (encryption in transit)
+- In CSE, the data is encrypted by the client before transmit. S3 is only used for storage.
+- In SSE, encryption is done by the S3 server. If encryption on transit is broken, we can see the data in its true form.
+
+![alt text](<Screenshots/Screenshot 2024-05-23 at 4.27.23 PM.png>)
+
+### Types of SSE:
+- SSE-C: S3 does encryption and decryption using customer managed keys and data. Encrypted object and hash are stored on disc. The key should be provided for decryption. Key is not stored on S3.
+- SSE-S3: S3 encrypts and decrypts each object using a unique key that it provides. S3 also provides an extra key that is used to encrypt the object keys on disc. <ins> Default encryption type </ins>.
+- SSE-KMS: S3 uses plain data with a plaintext KMS key to encrypt the data. Encrypted data is stored with encrypted KMS key on disc. KMS keys can generate DEKs for data > 4kb.
+
+![alt text](<Screenshots/Screenshot 2024-05-23 at 4.46.08 PM.png>)
+
+## S3 Bucket Keys
+- Without bucket keys, there is a limit on the number of objects we can add to s3 per second with kms key encryption. In this case, a DEK is made for each object by the KMS key.
+- With bucket keys, a time limited "bucket key" is given by KMS to S3, which is used to make the DEKs. This reduces cost and increases scalability. 
+
+**Things to remember**:
+- When bucket key make DEKs, the cloudtrail event will show the bucket, not the object
+- Works with replicated objects. 
+- If object replicated is plaintext, the object is encrypted at the destination using the bucket keys. 
