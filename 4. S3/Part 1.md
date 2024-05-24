@@ -5,7 +5,9 @@
 - Performance optimization
 - Key Management Service (KMS)
 - Object Encryption CSE/SSE
-- S3 Bucket Keys
+- Bucket Keys
+- Object Storage Classes
+- Lifecycle Configuration
 
 ## Security
 - Initially, only the root user has access to S3. 
@@ -100,3 +102,12 @@ This enables faster, better performing data transfer than if the data was sent v
 - When bucket key make DEKs, the cloudtrail event will show the bucket, not the object
 - Works with replicated objects. 
 - If object replicated is plaintext, the object is encrypted at the destination using the bucket keys. 
+
+## Object Storage Classes
+- **Default: S3 Standard** - Object is stored across 3 AZs in one region. Successful storing returns an HTTP/1.1 200 OK status. <ins>Use for frequently used, important and non-replaceable data.</ins>
+- **S3 Standard-IA (Infrequent access)**: Data replicated over 3 AZs. Same availability an durability. Storage cost is half of S3-standard. Associated with a retrieval fee. There is a minimum charge on storage duration (30 days), object size (128kb). <ins> Use for long term storage which is important and irreplaceable, but access is infrequent </ins>
+- **S3 One Zone-IA**: Data is only stored in one AZ. Cheaper than the two above, has the same duration and size fees as standard-IA. Same durability as the top two, data is replicated inside the AZ. <ins> Use for long-term data that infrequently accessed, non-critical and easy to replace.</ins>
+- **S3 Glacier-Instant**: Data is stored in 3 AZs. Minimum storage fee is 90 days. Higher retrieval fee. <ins> Best for data that is long-term, very infrequent access but is available instantly when needed</ins>
+- **S3 Glacier-Flexible**: Data is stored in 3 AZs. Same durability, storage cost is 16% of S3 standard. Not immediately available. Retrieval process is needed to access objects. Retrieval time is anywhere between 1 min to 12 hours. Once retreived, they are stored in S3 standard-IA temporarily. Permanent retrieval requires changing class.  Faster the need, more the cost. 40kb minimum billable size, 90 day minimum storage time. <ins> Best for archival data, once a year kinda access where real time access is not needed</ins>
+- **S3 Glacier-Deep Archive**: Cheapest. 40kb minimum billable size, 180 day minimum billable duration. Retrieval process is needed to access objects. Once retreived, they are stored in S3 standard-IA temporarily. Time taken to retrieve is b/w 12 to 48 hours. <ins> Best for data that rarely (if ever) needed.</ins>
+- **Intelligent tiering**: A storage class with 5 tiers inside it. Object can be stored in freq/infreq/achive instant/archive/deep archive tiers. AWS monitors object usage, and shifts the tier where object is stored accordingly. <ins> Best for data where the pattern of usage changes / is unknown. Using one of the first two storage classes is better for frequently or infrequently accessed data. </ins>
