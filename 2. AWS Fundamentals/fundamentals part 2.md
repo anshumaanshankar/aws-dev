@@ -27,6 +27,7 @@ The above image shows the architecture of cloudwatch basics. CPU, memory and dis
 
 ## Shared Responsibility Model
 ![alt text](<Screenshots/Screenshot 2024-05-20 at 1.28.20 PM.png>)
+
 The image above lists what part of the product AWS manage, and which elements you have to manage. 
 
 ## High Availability, Fault Tolerance and Disaster Recovery
