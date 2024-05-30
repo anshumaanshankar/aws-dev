@@ -13,7 +13,11 @@
     - Effect: Allow or deny. This controls what AWS does when the resource and action match.
     - Action: Action(s) performed on a resource. Using * means we can do all actions possible.
     - Resource: The resource we are allowing/deny access to, specified by ARN
-    
+
+## IAM Resource policies
+ - Policies that are attached to resources (S3 buckets, EC2 instances etc) to allow and deny access to users and roles.
+
+## Hierarchy of access:
 Different statements may allow and deny an action at the same time. In this case, the priority of effects come into play:
 - Explicit deny
 - Explicit allow
