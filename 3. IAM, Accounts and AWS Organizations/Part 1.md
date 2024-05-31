@@ -11,7 +11,7 @@
 - policies are JSON documents made of permission statements attached to users, groups and roles. Each statement includes:
     - Sid: informs the reader of what that statement does
     - Effect: Allow or deny. This controls what AWS does when the resource and action match.
-    - Action: Action(s) performed on a resource. Using * means we can do all actions possible.
+    - Action: Action(s) performed on a resource. Using * means we can do all actions possible. <ins> notaction is the inverse (anything inside notaction is the only thing allowed) </ins >
     - Resource: The resource we are allowing/deny access to, specified by ARN
     - Condition: A condition that must be met for the statement to be applied (for eg. we can set start, end timestamps in which time a condition applies)
 
