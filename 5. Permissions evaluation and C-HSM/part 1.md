@@ -18,3 +18,21 @@
         1. We check all permmissions for the user in account A (7 step process listed above)
         2. Account B must allow access from account A and account A must allow access to account B. If one or the other is not allowed, access is denied. 
         ![alt text](<Screenshots/Screenshot 2024-05-31 at 2.03.48 PM.png>)
+
+## CloudHSM
+- A hardware security module (HSM) is a specialized security device that generates and stores cryptographic keys.
+- CloudHSM is a service for creating and managing cloud based HSMs. 
+- KMS can use CloudHSM as a custom Key store.
+It was insustry standard APIs like PKCS#11, java Cryptography Extensions (JCE).
+- It is FIPS 140-2 level 3 compliant.
+
+### Architecture
+![alt text](<Screenshots/Screenshot 2024-05-31 at 2.26.22 PM.png>)
+
+### Use Cases and limitations (when to use KMS / HSM)
+- No native integration bw any AWS product and HSM (for eg. cannot be used with S3 SSE, but can be used for CSE)
+- Used to offload SSL / TLS processing for web servers - something KMS cannot do natively.
+- Enable transparent data encryption on oracle databases.
+- Protect private keys for an issuing certificate authority.
+
+TLDR: Anything that does not have to integrate with AWS, C-HSM is better. Otherwise, KMS is better. If we need industry standard encryption APIs, HSM is better. 

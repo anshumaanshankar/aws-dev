@@ -23,3 +23,11 @@
 - max of 5000 IAM users per account. For large no. users (eg. large companies / merges) we use IAM roles, not one user per person.
 - an IAM user can only be in <= 10 IAM groups.
 - Usually, an identity policy that has only deny statement(s) are applied in conjunction with other policies that have allows. To apply just this policy to a user or role is useless.
+
+## CloudHSM
+- TLDR: Anything that does not have to integrate with AWS, C-HSM is better. Otherwise, KMS is better. If we need industry standard encryption APIs, HSM is better. 
+- Uses FIPS 140-2 level 3 encryption (KMS is Level 2 overall).
+- No native integration bw any AWS product and HSM.
+- Used to offload SSL / TLS processing for web servers - something KMS cannot do natively.
+- Enable transparent data encryption on oracle databases
+- Protect private keys for an issuing certificate authority.
