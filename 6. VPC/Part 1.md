@@ -16,6 +16,7 @@ Design choices around VPC Design and IP Planning
 ### Case study : Animals for life
 
 - Address ranges we cannot use are:
+
 USER            | Address Space
 ----------------|----------------
 On premise(AUS) |  192.168.10.0/24
