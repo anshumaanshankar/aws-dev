@@ -31,3 +31,7 @@
 - Used to offload SSL / TLS processing for web servers - something KMS cannot do natively.
 - Enable transparent data encryption on oracle databases
 - Protect private keys for an issuing certificate authority.
+
+## VPC
+- Route tables in a VPC come preset with routes to move data within the VPC, for both IPv4 and IPv6. If more than one route is a match for destination of the packet, local routes take priority.
+- Every subnet of a VPC has a NACL, which filters data as it crosses the boundary of the subnet (both ways).
