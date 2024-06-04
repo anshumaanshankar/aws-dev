@@ -37,5 +37,6 @@
 - Default VPC can be recreated, some processes may not run properly if the default does not exist.
 - Route tables in a VPC come preset with routes to move data within the VPC, for IPv4 and IPv6. If more than one route is a match for destination of the packet, local routes take priority.
 - Every subnet of a VPC has a NACL, which filters data as it crosses the boundary of the subnet. Moving data across subnets requires permissions from both NACLs and SGs if any.
-- VPC SGs are attached to elastic network interfaces (ENIs).
 - We need one NAT Gateway in each AZ of our region (Put NAT Gateway in public tier) where the VPC is set up and one route table in each AZ to point data from private instances at that NAT gateway. NAT gateway will communicate with IGW. 
+- VPC SGs are attached to elastic network interfaces (ENIs).
+- Security Groups cannot explicitly deny. They are used along with NACLs for overcoming this. 

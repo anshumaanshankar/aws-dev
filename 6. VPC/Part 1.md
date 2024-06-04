@@ -112,15 +112,3 @@ All Ipv6 addresses are publically routable.
 1. Create the subnets on your VPC, create a public IPv4 address for them.
 2. Make an IGW, connect it to the VPC.
 3. Create a route table, add subnet associations and destination IPs.
-
-
-## Structure of the VPC
-![alt text](<Screenshots/Screenshot 2024-06-04 at 11.29.24 AM.png>)
-
-- VPC is set up inside a region
-- A, B, C are the AZs of that region
-- Reserved, DB, APP and WEB are tiers that exist in each region
-- Each of these tiers in a region is represented as one subnet. Thus, each AZ has 4 subnets.
-- Blue subnets are private, Green are public. 
-- Traffic can be routed from blue to green subnets using a route table, pointing data at the NAT gateway in green.
-- NAT gateway points data to the IGW via the VPC router. 
