@@ -35,3 +35,4 @@
 ## VPC
 - Route tables in a VPC come preset with routes to move data within the VPC, for both IPv4 and IPv6. If more than one route is a match for destination of the packet, local routes take priority.
 - Every subnet of a VPC has a NACL, which filters data as it crosses the boundary of the subnet (both ways).
+- VPC SGs are attached to elastic network interfaces (ENIs).

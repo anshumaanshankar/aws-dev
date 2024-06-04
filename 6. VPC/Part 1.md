@@ -19,12 +19,8 @@ Design choices around VPC Design and IP Planning
 
     USER            | Address Space
     ----------------|----------------
-    On premise(AUS) |  192.168.10.0/24
     AWS Pilot       |  10.0.0.0/16
-    Azue Pilot      |  172.31.0.0/16
     Ldn Office      |  192.168.15.0/24
-    NYC office      |  192.168.20.0/24
-    Seattle Office  |  192.168.25.0/24
     GCP Provider    |  10.128.10.0/9
 
 - Assumptions: 

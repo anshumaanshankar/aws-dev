@@ -32,3 +32,17 @@
 - custom NACLs are initially made with a default deny, but they're not automatically associated with any subnet. 
 - Each VPC can only have 1 NACL.
 - 1 NACL can be associated with multiple VPCs. 
+
+## Security Groups (SG)
+- SGs are attached to elastic network interfaces (ENIs).
+- SGs are Stateful, meaning allowing or denying a request has the same effect on the response. 
+- <ins>They have no explicit denies</ins> - they cannot block specific bad actors because we can't block specific IP or IP ranges. 
+- Used in conjunction with NACLs which add explicit denies. 
+- They support referencing AWS logical resources including other SGs and itself:
+    <p>We can write a SG such that it allows outcoming requests from one subnet that come to another. This way, we can connect a private "app" subnet to a public "web" subnet, which in turn could accept incoming requests from anywhere in the web (0.0.0.0). Thus, we don't have to worry about IP addresses and CIDR ranges within a VPC. This is shown in the image below.</p>
+    
+    ![alt text](<Screenshots/Screenshot 2024-06-03 at 5.31.53 PM.png>)
+
+    <p>The inbound rule on the right allows the web application to get requests from the public internet, and the inbound rule on the left lists the SG that allowed this public access as its source, thereby allowing access on port 1337 by it (so web can access app).</p>
+
+    <p> When a SG's rule references itself and allows all communication, different resources all having that SG can communicate with one another </p>
