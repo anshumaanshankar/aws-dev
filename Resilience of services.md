@@ -6,5 +6,6 @@ VPC                 |  REGION
 S3                  |  REGION
 KMS                 |  REGION
 Internet Gateway    |  REGION  
+NAT Gateway         |  AZ   
 EC2                 |  AZ
 VPC subnet          |  AZ

@@ -46,3 +46,26 @@
     <p>The inbound rule on the right allows the web application to get requests from the public internet, and the inbound rule on the left lists the SG that allowed this public access as its source, thereby allowing access on port 1337 by it (so web can access app).</p>
 
     <p> When a SG's rule references itself and allows all communication, different resources all having that SG can communicate with one another </p>
+
+## Network Address Translation (NAT) and NAT gateway
+- A set of processes that can change source and/or destination IPs
+- Internet Gateway (IGW) performs a <ins>static NAT</ins>: Changes private src IP to public on outgoing packets, and changes public dest. IP to private on incoming data packets.
+- IP masquerading, often just called NAT, involves hiding an address range behind one IP. Used to give private address ranges to the outgoing internet access. NAT can't be used from public internet to access private IPs. This is done from NAT gateways.
+- NAT is not needed for IPv6., NAT gateways don't work with IPv6. 
+- Its meant for private IPv4 addresses to connect to the public internet. 
+
+### Architecture:
+- We have a private subnet with address range 10.16.32.0/20 inside which we have 3 instances, i-01 to i-03 with IP addresses 10.16.32.10/20/30
+- All those 3 IPs are private.
+- Using NAT, we can provision a NAT gateway into a public subnet. Using a routing table in the public subnet, we can send data out and get data back in with that NAT gateway being the source.
+- Using a route table on the private subnet, we can create routes connecting i-01 to 03 to the NAT gateway in the public subnet. 
+
+### Moving a data packet using NAT gateways
+- A private instance transmits a packet that has a public internet destination IP.
+- Using the routing table in the private subnet, the packet is sent to the NAT Gateway (NAT-G) which is present in the public subnet.
+- The NAT-G makes note of where the packet came from and changes the src address from that of the instance to that of itself. 
+- Using the routing table in this public subnet, this packet is sent to the IGW.
+- The IGW knows that the packet came from the NAT gateway, modifies the source address from the NAT-G's private IP to its public IP.
+- IGW sends the packet on the public internet to its destination.
+- Thus, the NAT gateway takes data from various private IPs, shields them behind its own public IP and passes on those requests - IP masquerading!!
+![alt text](<Screenshots/Screenshot 2024-06-03 at 6.34.46 PM.png>)
