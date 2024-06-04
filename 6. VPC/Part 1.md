@@ -46,11 +46,12 @@ We can work top down or bottom up when we decide on our structure.
 ## Custom VPCs
 - An isolated network that is disconnected from everything outside it, unless permissions are given.
 - Default or dedicated tenancy (has a cost premium).
-- IPv4 Private CIDR blocks and public IPs (For public resources / communicating with public internet)
-- A private private CIDR block is made upon creation. This block is between /16 and /28 subnet sizes.
-- A secondary CIDR block can be added if needed, can go upto 5.
-- We can get assigned an optional IPv6 address range with /56 subnet mask. All these addresses are publically accessible, but its secure. 
-- Come with DNS provided by R53. The DNS is found at base IP + 2. 
+- IPv4 Private address ranges are assigned to VPCs. 
+- public IPs can be assigned to resources inside a VPC in addition to their private IP to enable communicating with public internet.
+- A private private address range is made upon creation. The subnet mask is between /16 and /28 for VPCs. 
+- A secondary address range can be added if needed, can go upto 5.
+- We can get assigned an optional IPv6 address range with /56 subnet mask. All IPv6 addresses are publically accessible (no private IPs). 
+- Come with DNS provided by R53.
 - Enable DNS resolution and hostnames.
 
 ## Subnets
@@ -72,21 +73,19 @@ We can work top down or bottom up when we decide on our structure.
 
 ## Routing, Internet gateway and Bastion hosts
 ### VPC Routers
+**When data is transmitted from inside a VPC, A VPC router looks at the routing table of the source. If the route to destination is valid, data is sent to the destination.**. 
 - Present in every VPC, Highly available.
-- Routes traffic b/w subnets in that VPC.
-- without a route table and IGW, packets from a subnet can only be sent within the VPC .
-- We can create route tables, add subnets of a VPC that conform to these rules and add destination IPs. Then, data from those subnets will be able to go the destination IPs we specified, using the IGW. 
-- When default routes are added for IPv4 (0.0.0.0/0) and IPv6(::/0), we can send data to any IP on the public internet when the destination on a packet does not match the address range of the VPC or any other specific destination IPs mentioned in the route table. 
-- The destination IP address with highest subnet mask value (more specific) takes priority when multiple routes are matched with a packet's destination address. **NOTE**: Local routes take priority.
+- Subnets come with a routing table that automatically allows transmission of data within the VPC.
+- We can make new routes with public destination IPs and associate these routes with a subnet to enable public transmission, using IGW.
+- If we want to enable public transmission, the resource will need to have a public IP in addition to its private IP inside the VPC. 
+- Default routes for IPv4 (0.0.0.0/0) and IPv6(::/0), allow data to any public destination IP. If no specific route is matched with destination, this default is applied.
+- When multiple destination IPs are matched with a rule, The destination address with highest subnet mask value (more specific) takes priority. **NOTE**: Local routes take priority.
 
 ### Internet Gateway (IGW)
-- Regionally resilient gateway attached to a VPC.
-- VPCs can have 0 or 1 gateway, and a gateway can be connected to 0 or 1 VPC.
-- Allows services inside VPCs that have public Ipv4 or IPv6 addresses to reach/be reached by the interent and to connect to the AWS public zone.
-
-#### How packets are routed using IGW
-The IGW has a map of services that have public IPv4 addresses, and their private Ipv4 addresses. 
-The IGW sends and receives packets of data without ever revealing the private IP of a service running in the VPC.
+- Allows resources inside the VPC to communicate with the public internet. These resources will have a public IPv4 address.
+- The IGW has a map of resources that have public IPv4 addresses along with their private Ipv4 addresses. 
+- The IGW masks the private IP of the resource, and changes the address from its public to private or vice versa for incoming and outgoing transmissions resp.
+- VPCs can have 0 or 1 gateway (region resilience) and a gateway can be connected to 0 or 1 VPC.
 
 1. Sending from VPC
     - EC2 instance has a packet with source (its private Ipv4) and destination IP.
@@ -113,3 +112,15 @@ All Ipv6 addresses are publically routable.
 1. Create the subnets on your VPC, create a public IPv4 address for them.
 2. Make an IGW, connect it to the VPC.
 3. Create a route table, add subnet associations and destination IPs.
+
+
+## Structure of the VPC
+![alt text](<Screenshots/Screenshot 2024-06-04 at 11.29.24 AM.png>)
+
+- VPC is set up inside a region
+- A, B, C are the AZs of that region
+- Reserved, DB, APP and WEB are tiers that exist in each region
+- Each of these tiers in a region is represented as one subnet. Thus, each AZ has 4 subnets.
+- Blue subnets are private, Green are public. 
+- Traffic can be routed from blue to green subnets using a route table, pointing data at the NAT gateway in green.
+- NAT gateway points data to the IGW via the VPC router. 
