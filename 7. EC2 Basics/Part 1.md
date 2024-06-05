@@ -17,10 +17,10 @@ Both 1 and 2 have a set up that looks like this.
 ![alt text](<Screenshots/Screenshot 2024-06-04 at 1.38.30 PM.png>)
 
 3. Hardware assisted virtualization - The hardware itself is aware of the virtualization. The CPU expects instructions from the guest OS, which is redirected to the hypervisor which handles the execution. This is even faster. **Drawback**: The VM still think they have actual hardware, when they don't - they actually use cards on the hypervisor. This means, when we perform high transactional activities, performance is impacted. Lot of CPU cycles are consumed on the host.
-4. 
+
 ![alt text](<Screenshots/Screenshot 2024-06-04 at 1.48.08 PM.png>)
 
-5. SR-IOV (Single Route IO Virtualization) - Allows add-on cards to present itself as several mini-cards that are unique. These are presented to the OS, dedicated for its use. Thus, the guest OS can use these cards directly without needing the hypervisor. <ins> Used for advanced networking now.</ins> 
+4. SR-IOV (Single Route IO Virtualization) - Allows add-on cards to present itself as several mini-cards that are unique. These are presented to the OS, dedicated for its use. Thus, the guest OS can use these cards directly without needing the hypervisor. <ins>Used for advanced networking now.</ins> 
 ![alt text](<Screenshots/Screenshot 2024-06-04 at 1.48.40 PM.png>)
 
 ## Architecture and Resilience
