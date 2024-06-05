@@ -113,7 +113,7 @@ All three metrics are related.
 ### Provisioned IOPS SSD - io1 io2, io blockexpress
 
     Metric          | io1           | io2           | Block express
-    ----------------|---------------|---------------|---------------
+--------------------|---------------|---------------|---------------
     Max throughput  |1000mbps       |1000mbps       | 4000mbps
     Max IOPS        |64,000         |64,000         | 256,000
     Size            |4gb-16tb       |4gb-16tb       | 4gb-64tb
