@@ -32,7 +32,8 @@
 - Each VPC can only have 1 NACL, 1 NACL can be associated with multiple VPCs. 
 
 ## Security Groups (SG)
-- SGs are attached to elastic network interfaces (ENIs).
+- SGs are attached to elastic network interfaces (ENIs). ENIs are used to provide connectivity to EC2 instances. 
+- Thus, essentially, SGs are like policies that we apply on EC2 instances, to allow and deny certain types of comms. 
 - SGs are stateful, meaning allowing or denying a request has the same effect on the response. 
 - <ins>They have no explicit denies</ins> - they cannot block specific bad actors because we can't block specific IP or IP ranges. 
 - Used in conjunction with NACLs which add explicit denies. 
