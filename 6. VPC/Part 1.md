@@ -73,7 +73,7 @@ We can work top down or bottom up when we decide on our structure.
 
 ## Routing, Internet gateway and Bastion hosts
 ### VPC Routers
-**When data is transmitted from inside a VPC, A VPC router looks at the routing table of the source. If the route to destination is valid, data is sent to the destination.**. 
+`When data is transmitted from inside a VPC, A VPC router looks at the routing table of the source. If the route to destination is valid, data is sent to the destination.`
 - Present in every VPC, Highly available.
 - Subnets come with a routing table that automatically allows transmission of data within the VPC.
 - We can make new routes with public destination IPs and associate these routes with a subnet to enable public transmission, using IGW.
