@@ -86,10 +86,10 @@ All three metrics are related.
 
 ## EBS Service architecture
 - Provides block storage which are raw disc allocations.
+- Each block is called a `volume`.
 - EBS volumes can only be attached to one instance at a time, but we can detach from one and attach to another.
 - Instances see a block device on top of which they make file systems. 
 - EBs volumes are local to one AZ. To share across AZs or regions, we can take a "snapshot" of the volume.
-- When a "snapshot" is taken, its stored in S3. Using S3, we can replicate the snapshot in other AZs/regions, where we can make another EBS volume.
 - Billed at gb-month (1gb per month = 2gbs per half month).
 
 ![alt text](<Screenshots/Screenshot 2024-06-04 at 6.33.14 PM.png>)
