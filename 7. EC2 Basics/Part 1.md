@@ -121,9 +121,22 @@ IOPS by size    |50 IOPS per gb |500 IOPS per gb| 1000 IOPS per gb
 
 Per instance performance: The maximum performance that can be acheived between EBS service and an EC2 instance. Its influenced by type of volume, type of instance and size of the instance. 
 
-Assuming ideal type and size of instance; Max per instance performance of:
+Assuming ideal type and size of instance; We can see max per instance performance of:
 1. io1: 260,000 IOPS and 7,500mbps throughput. That is 4 volumes of io1
 2. io2: 160,000 IOPS and 4,750mbps throughput.  
 3. block express: 260,000 IOPS and 7,500 mbps throughput. 
 
 ### HDD based
+1. Throughput optimized (st 1):
+    - Designed for sequentially accessed data
+    - Range from 125gb to 16tb
+    - Max of 500 IOPS. I/O is measured as 1mb blocks.
+    - Baseline performance of 40mbps per TB, scalable upto 250mbps per TB upto the max.
+    - Designed for Big Data, Data warehouses and log processing
+2. Cold HDD (sc 1):
+    - Designed for infrequent workloads.
+    - Range from 125gb to 16tb
+    - Max of 250 IOPS with 1mb I/O
+    - Baseline of 12mbps per TB, scalable upto 80 mbps per TB
+    - `Lowest cost storage in EBS`
+    
