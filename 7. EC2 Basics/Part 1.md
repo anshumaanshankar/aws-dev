@@ -112,12 +112,12 @@ All three metrics are related.
 
 ### Provisioned IOPS SSD - io1 io2, io blockexpress
 
-    Metric          | io1           | io2           | Block express
---------------------|---------------|---------------|---------------
-    Max throughput  |1000mbps       |1000mbps       | 4000mbps
-    Max IOPS        |64,000         |64,000         | 256,000
-    Size            |4gb-16tb       |4gb-16tb       | 4gb-64tb
-    IOPS by size    |50 IOPS per gb |500 IOPS per gb| 1000 IOPS per gb
+Metric          | io1           | io2           | Block express
+----------------|---------------|---------------|---------------
+Max throughput  |1000mbps       |1000mbps       | 4000mbps
+Max IOPS        |64,000         |64,000         | 256,000
+Size            |4gb-16tb       |4gb-16tb       | 4gb-64tb
+IOPS by size    |50 IOPS per gb |500 IOPS per gb| 1000 IOPS per gb
 
 Per instance performance: The maximum performance that can be acheived between EBS service and an EC2 instance. Its influenced by type of volume, type of instance and size of the instance. 
 
