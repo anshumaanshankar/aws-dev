@@ -27,9 +27,10 @@ Both 1 and 2 have a set up that looks like this.
 ## Architecture and Resilience
 - EC2 instances are Virtual machines (OS + resources) that run on EC2 hosts (AWS managed hardware). Hosts can be shared or dedicated.  
 - EC2 hosts run in a single AZ of a region. They have local temp storage called instance store & 2 types of networking (storage and data).
-- A primary elastic network interface (ENI) is provisioned in a subnet and mapped to the physical hardware of the EC2 host. Multiple network interfaces can be mapped to a single host, even in different subnets. Same AZ is needed though. 
+- A primary elastic network interface (ENI) is provisioned in a subnet and mapped to the EC2 host.
+- An ENI enables the EC2 instance with network connectivity, aka the ability to communicate within that subnet and, given permissions, outside of it.
+- An EC2 instance can connect to a host only from an ENI of its own subnet. ENIs from multiple subnets can establish connections to a host. 
 - Instances of the same type and size mostly share the same host. 
-- Hosts can connect to the Elastic BLock Store (EBS), which is AZ resilient and used for remote storage.    
 - Instances stay on a host till
     - A host fails or is taken down
     - If an instance is stopped and then started (not the same as restart)
@@ -85,10 +86,10 @@ All three metrics are related.
 
 ## EBS Service architecture
 - Provides block storage which are raw disc allocations.
-- EBS volumes are attached to one EC2 instance at a time. They can be detached from one instance and attached to another - they're independent of the instance.
+- EBS volumes can only be attached to one instance at a time, but we can detach from one and attach to another.
 - Instances see a block device on top of which they make file systems. 
-- Storage is provisioned in one AZ. 
-- When a "snapshot" is taken of a volume, its stored in a portion of S3 managed by EBS. Using this snapshot, we can create the volume in a different AZ. 
+- EBs volumes are local to one AZ. To share across AZs or regions, we can take a "snapshot" of the volume.
+- When a "snapshot" is taken, its stored in S3. Using S3, we can replicate the snapshot in other AZs/regions, where we can make another EBS volume.
 - Billed at gb-month (1gb per month = 2gbs per half month).
 
 ![alt text](<Screenshots/Screenshot 2024-06-04 at 6.33.14 PM.png>)
@@ -98,28 +99,30 @@ All three metrics are related.
 ### General Purpose SSD - GP2
 - A GP 2 volume can be b/w 1gb and 16tb in size.
 - Max. throughput of GP2 is 250mbps. 
-- Each volume comes with an 'IO Credit Bucket' with 5.4 million initial IO credits. Each IO credit is 16kb, meaning 16kb can be handled per second by one credit. On top of this, the bucket refills at the rate of Baseline Performance.
-- If the volume size is <= 33.3gb, we get 100 credits/second (IOPS). For volume > 33.3gb, we get 3*size IO credits per second. That is, for a volume of size 70gb, we would get 70*3 = 210 IO credits/second aka 210 IOPS.  
-- We can "burst" upto 3000 IOPS, emptying our credit bucket. That is, we can perform up to 3000 Input/Output operations in a second. 
-- **NOTE**: The number of credits inputted per second is capped at 16,000. That means, for all volumes of size 5.33tb and larger, there is no increase in IOPS over 16,000. At 1tb, the number of credits entering per second exceeds the burst of 3000 IOPS.
+- Each volume comes with an 'IO Credit Bucket' with 5.4 million initial IO credits, each capable of moving upto 16kb. The bucket refills at or over baseline performance. 
+- `Baseline performance: IO credits incoming per second (IOPS)` is 100. If the volume size is <= 33.3gb, we get 100 IOPS. For volume > 33.3gb, we get 3 IO credits per gb per second. That is, for a volume of size 70gb, we would get 70*3 = 210 IOPS. 
+- Baseline performance is capped at 16,000 IOPS. The limit is reached at 5.33tb (3 IOPS * 5.33 tb = 16k IOPS)
+- `Burst: Maximum IOPS outgoing` is 3000. Bursting empties our credit bucket.
+- At 1tb, the number of credits entering per second exceeds the burst of 3000 IOPS.
 
 ### General Purpose SSD - GP3
 - `20% cheaper than gp2, mostly even when paying extra`.
-- Size of the volume is b/w 1gb and 16tb, same as GP2.
+- Size of the volume is b/w 1gb and 16tb.
 - No credit architecture system like in GP2. 
-- Each volume, regardless of size, performs 3000 IOPS and throughput of 125 mbps.
-- Both IOPS and throughput can be increased by paying extra - upto 16,000 IOPS and 1000mbps.
+- Each volume, regardless of size, has baseline performance of 3000 IOPS and throughput of 125 mbps.
+- Both baseline performance and throughput can be increased by paying extra - upto 16,000 IOPS and 1000mbps.
+- There is no specified burst.
 
 ### Provisioned IOPS SSD - io1 io2, io blockexpress
 
-Metric          | io1           | io2           | Block express
-----------------|---------------|---------------|---------------
-Max throughput  |1000mbps       |1000mbps       | 4000mbps
-Max IOPS        |64,000         |64,000         | 256,000
-Size            |4gb-16tb       |4gb-16tb       | 4gb-64tb
-IOPS by size    |50 IOPS per gb |500 IOPS per gb| 1000 IOPS per gb
+Metric                  | io1           | io2           | Block express
+--------------------    |---------------|---------------|---------------
+Size                    |4gb-16tb       |4gb-16tb       | 4gb-64tb
+Baseline performance    |50 IOPS per gb |500 IOPS per gb| 1000 IOPS per gb
+Max baseline performance|64,000 IOPS    |64,000 IOPS    | 256,000 IOPS
+Max throughput          |1000mbps       |1000mbps       | 4000mbps
 
-Per instance performance: The maximum performance that can be acheived between EBS service and an EC2 instance. Its influenced by type of volume, type of instance and size of the instance. 
+`Per instance performance: The maximum performance that can be acheived b/w EBS service and an EC2 instance.` It is influenced by volume type, instance type and instance size. 
 
 Assuming ideal type and size of instance; We can see max per instance performance of:
 1. io1: 260,000 IOPS and 7,500mbps throughput. That is 4 volumes of io1
@@ -131,12 +134,12 @@ Assuming ideal type and size of instance; We can see max per instance performanc
     - Designed for sequentially accessed data
     - Range from 125gb to 16tb
     - Max of 500 IOPS. I/O is measured as 1mb blocks.
-    - Baseline performance of 40mbps per TB, scalable upto 250mbps per TB upto the max.
+    - Baseline throughput of 40mbps per TB, scalable upto 250mbps per TB.
     - Designed for Big Data, Data warehouses and log processing
 2. Cold HDD (sc 1):
     - Designed for infrequent workloads.
     - Range from 125gb to 16tb
     - Max of 250 IOPS with 1mb I/O
-    - Baseline of 12mbps per TB, scalable upto 80 mbps per TB
+    - Baseline thorughput of 12mbps per TB, scalable upto 80 mbps per TB
     - `Lowest cost storage in EBS`
     
