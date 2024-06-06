@@ -28,7 +28,7 @@ Both 1 and 2 have a set up that looks like this.
 - EC2 instances are Virtual machines (OS + resources) that run on EC2 hosts (AWS managed hardware). Hosts can be shared or dedicated.  
 - EC2 hosts run in a single AZ of a region. They have local temp storage called instance store & 2 types of networking (storage and data).
 - A primary elastic network interface (ENI) is provisioned in a subnet and mapped to the EC2 host.
-- An ENI enables the EC2 instance with network connectivity, aka the ability to communicate within that subnet and, given permissions, outside of it.
+- An ENI enables the EC2 instance with network connectivity, aka the ability to communicate within that subnet and, given permissions, outside of it. An instance can be connected to more than one ENI.
 - An EC2 instance can connect to a host only from an ENI of its own subnet. ENIs from multiple subnets can establish connections to a host. 
 - Instances of the same type and size mostly share the same host. 
 - Instances stay on a host till

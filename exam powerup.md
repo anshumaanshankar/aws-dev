@@ -40,3 +40,14 @@
 - We need one NAT Gateway in each AZ of our region (Put NAT Gateway in public tier) where the VPC is set up and one route table in each AZ to point data from private instances at that NAT gateway. NAT gateway will communicate with IGW. 
 - VPC SGs are attached to elastic network interfaces (ENIs).
 - Security Groups cannot explicitly deny. They are used along with NACLs for overcoming this. 
+
+## EC2
+- Encryption on EBS
+    - Accounts can encrypt EBS by default using the default KMS key or manually pick a key each time.
+    - The KMS key makes a unique DEK key for each volume.
+    - Snapshots and future volumes will use the same DEK as the original volume. 
+    - The OS is unaware of any encryption, which happens between the EC2 host and the volume.
+- ENIs
+    - Secondary ENI's MAC address is used for licensing
+    - ENIs are never configured inside an OS with public IPv4 addresses. The private-public switching is handled by NAT.
+    - stop/start of an instance is not the same as restart. The former leads to loss of IPv4 public address.

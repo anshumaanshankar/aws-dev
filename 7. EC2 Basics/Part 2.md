@@ -44,3 +44,24 @@ Unclear:
 - instantly restore 
 - 50 instant restores can be done on a region by picking the specific snapshot and the AZ we want to restore to. Restoring 1 snapshot to 4 AZs uses 4 of those 50.
 - Performs the same operation of forcing a read, but costs extra. 
+
+## EBS Encryption
+- Volumes can be encrypted using KMS, where the KMS key makes a DEK key for each volume.
+- Snapshots and future volumes will use the same DEK as the original volume. 
+- When a volume is being used by an instance, the EC2 host connected to the instance holds the DEK key. 
+- Encryption happens between the EC2 host and the volume.
+- The data is unecncrypted only inside the EC2 host. 
+- When the instance moves from one key to another, the encrypted DEK key must be decrypted and moved to the new host. 
+
+## Network Interfaces, Instance IPs and DNS
+### Things associated with Network interfaces
+![alt text](<Screenshots/Screenshot 2024-06-05 at 2.06.56 PM.png>)
+- Primary IPv4 private IP
+    - We get a DNS name associated with this IP, that can be used for comms inside the VPC. eg shown above ending as internal
+- 0/1 Public IPv4 address (optional)
+    - stop/start of an instance, changing hosts makes a new address. 
+    - We get a public DNS name. eg shown above ending in aws.com. 
+    - `Inside the VPC, DNS resolves to private IP. Outside it, it resolves to the public IP of the instance.`
+- Elastic IP per private IPv4 (optional): 
+    - Associated with a private IP on a primary/secondary interface. 
+    - If assoc. with primary, `this IP becomes the public IP.` If this elastic IP is removed, a new public IP is allocated, the old one cannot be got back. 
