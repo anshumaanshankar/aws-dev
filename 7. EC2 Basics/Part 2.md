@@ -65,3 +65,22 @@ Unclear:
 - Elastic IP per private IPv4 (optional): 
     - Associated with a private IP on a primary/secondary interface. 
     - If assoc. with primary, `this IP becomes the public IP.` If this elastic IP is removed, a new public IP is allocated, the old one cannot be got back. 
+
+## Amazon Machine Images
+- AMIs are regional containers used to launch EC2 instances and make new ones with an existing one. 
+- We have AWS provided, community provided AMIs that are free, or commercial AMIs that are paid and can be got on the marketplace.
+- BY default, only the account launching an AMI can use it. Other accounts can be granted access or AMIs can be set to public.
+
+### AMI Lifecycle
+1. Launch
+    - Using an AMI to launch an EC2 instance along with some EBS volumes attached to it. Lets call them Boot and Data.
+2. Configure
+    - Take the instance made during launch, along with Boot, Data and customize it. 
+3. Create Image
+    - A customized instance and its EBS volumes can be used to make a new AMI. 
+    - When new AMIs are made like that, a snapshot is taken of each EBS volume for that instance (aka, Boot and Data).
+    - The new AMI contains the privacy info of the first, and references of Boot and Data inside it using `block device mapping`. That is, Block device mapping links a snapshot to it's EBS volume.
+4. Launch
+    - When a new EC2 instance is made with this new AMI, We get the same data and EBS volume configurations as the original instance. That is, we get back the same Boot and Data. This is called [AMI Baking](exam powerup.md).
+
+`Use`: We can take an AMI linked to an EC2 instance on a given AZ and use it to make more instances on the same, or different AZ. These new instances have the same EBS volume configurations as the original. 

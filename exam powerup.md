@@ -5,6 +5,7 @@
 - Policy document priority: explicit DENY, explicit ALLOW, default DENY.
 - cloudtrail is NOT REALTIME, there may be a 15 min delay for data to appear in s3 or cw logs. 
 - the / prefix is octal in nature. Means we can change one part of IP from 0 to 255. For eg: /8 means we can go from 10.0.0.0 to 10.255.255.255 (last number alone can't be changed). /9 prefix means we can go from 10.0.0.0 to 10.128.255.255 (last two full access, third last half access.)
+
 ## S3
 - object sizes can be 0 to 5TB on S3.
 - Bucket names are globally unique.
@@ -16,7 +17,6 @@
 - KMS provides a FIPS 140-2 Level 2 security standard.
 - AES-256 is the Encryption type on S3 for SSE.
 - You can make presigned URLs for objects that you don't have access to, but the URL does not allow access either (because you don't have access).
-
 
 ## IAM
 - IAM is globally resilient, meaning any data is secure across all AWS regions.
@@ -51,3 +51,9 @@
     - Secondary ENI's MAC address is used for licensing
     - ENIs are never configured inside an OS with public IPv4 addresses. The private-public switching is handled by NAT.
     - stop/start of an instance is not the same as restart. The former leads to loss of IPv4 public address.
+- AMIs
+    - They are present in one region.
+    - AMI Baking: concept of taking an EC2 instance, customizing it (add software, say) and "baking" a new AMI from it. 
+    - AMIs can't be edited. To edit it, we need to launch an instance, update the configuration and use it to make a new AMI.
+    - By default, AMIs are account specific (accounts can be added, can be made public).
+    - Billed for the capacity used by EBS snapshots. 
