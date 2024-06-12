@@ -82,3 +82,10 @@
 - No real limits to scaling, more granularity (smaller increment %ages).
 - Less expensive. 
 ![alt text](<Screenshots/Screenshot 2024-06-10 at 8.44.52 PM.png>)
+
+## Instance metadata
+- EC2 service provides data that is accessible inside all instances.
+- IP address to access instance metadata is `169.254.169.254/latest/meta-data/`.
+- Metadata is not encrypted, requires no permissions to access it (barring local firewall rules that you manually add).
+- Metadata allows querying to get back information about an instance. 
+- Metadata is used for networking, authentication, granting user data access. 
