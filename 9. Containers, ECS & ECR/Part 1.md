@@ -8,7 +8,7 @@
 ## Containers
 In virtual machines, The OS takes up most of the disk and memory space, leaving very little for applications to run on them. Many of these OS may also be the same, hence we are duplicating a lot. 
 
-A container is similar to a VM - provides an isolated environment for applications to run in. A container differs from a VM in that it uses the host's OS, and not its own making, them much lighter than a VM. We use a container engine on top of the Host's OS to run applications in independent envs. Each dabba on level 4 is a container in the figure below. 
+A container is similar to a VM - provides an isolated environment for applications to run in. A container differs from a VM in that it uses the host's OS, and not its own, making them much lighter than a VM. We use a container engine on top of the Host's OS to run applications in independent envs. Each dabba on level 4 is a container in the figure below. 
 ![alt text](<Screenshots/Screenshot 2024-06-11 at 5.39.23 PM.png>)
 
 ### Docker
