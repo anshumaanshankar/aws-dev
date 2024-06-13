@@ -43,7 +43,7 @@
 - A given source's logs are collected into a logstream. 
 - Log groups are used to combine log streams that hold similar information, but from diff sources. 
 - Metric filter, Retenions, Permissions and encryptions are added at the log group level. 
-- Metrics can be made from metric filters. 
+- Metrics can be made from metric filters and subsequently be associated with alarms.
 - Logging data can be exported to S3. `Exporting cannot be done in real time. Takes up to 12 hours.`
 
 ### Subscription
