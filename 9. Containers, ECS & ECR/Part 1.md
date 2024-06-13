@@ -58,7 +58,7 @@ ECS management engine: High level component that handles scheduling and orchestr
 - logs API actions to cloudtrail.
 
 ## Kubernetes 101
-Kubernetes is a container orchestration - It manages multiple docker containers and enables efficient use. 
+Kubernetes is a container orchestration tool - It manages multiple docker containers and enables efficient use. 
 ### Clusters
 Clusters are run by the control plane, which controls the nodes. Each node has containers in it, along with kubelets which communicate w the control plane through the kubernetes API. 
 ![alt text](<Screenshots/Screenshot 2024-06-11 at 7.11.15 PM.png>)
