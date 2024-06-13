@@ -56,4 +56,8 @@
     - AMI Baking: concept of taking an EC2 instance, customizing it (add software, say) and "baking" a new AMI from it. 
     - AMIs can't be edited. To edit it, we need to launch an instance, update the configuration and use it to make a new AMI.
     - By default, AMIs are account specific (accounts can be added, can be made public).
-    - Billed for the capacity used by EBS snapshots. 
+    - Billed for the capacity used by EBS snapshots.
+
+## Cloudwatch and Cloudwatch Logs
+- We neeed a cloudwatch agent to store metrics from external applications and on-premise servers. Some AWS services directly publish metrics on CW.
+- Moving data from CW logs to S3 is **NOT** realtime. 
