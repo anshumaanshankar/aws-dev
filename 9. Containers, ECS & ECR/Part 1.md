@@ -37,24 +37,25 @@ A container is similar to a VM - provides an isolated environment for applicatio
 ### Cluster Types
 Defines how much admin overhead the customer manages and how much AWS manage. 
 ECS management engine: High level component that handles scheduling and orchestration, Cluster management, Placement engine. Present in both cluster types. 
-1. EC2 mode (Linux + networking / Windows + networking)
-    - EC2 instances are used to run containers within a VPC. 
-    - Container images are deployed onto hosts (EC2 instances) via the task and service definition on container images, that can be found in the container directory.
-    - Use when we have large workloads and we are price conscious
+1. EC2 mode 
+    - EC2 instances are used to run containers within a VPC. (OS + networking ability)
+    - Container images that can be found in the container registry are deployed onto hosts (EC2 instances) with the task and service definitions.
+    - `Use` when we have large workloads and we are price conscious
 
-2. Fargate mode (Network only)
-    - Its a cluster model that has no server. 
-    - Containers that are deployed based on task and service definitions, on `fargate shared infrastructure`. 
-    - These tasks are then injected into a VPC, and given an ENI each. 
+2. Fargate mode 
+    - Its a cluster model that has no server (Network only).
+    - Containers are deployed on `fargate shared infrastructure` based on task and service definitions. 
+    - Containers are then injected into a VPC, and given an ENI each. 
     - If the VPC has public addresses, the task and services inside the container are now given public addresses. 
-    - Use if we are overhead conscious, have small or burst workloads, batch or periodic workloads. 
+    - `Use` if we are overhead conscious, have small or burst workloads, batch or periodic workloads. 
 
 ## Elastic Container Registry (ECR)
 - AWS provided service to host and manage container images. 
-- Each AWS account has a public and private registry, each registry having many repos, each of which has multiple container images. 
-- Public registries allow read only access to all. read write needs explicit permission. Private registries require people having both read and write. 
-- Offers close to real time metrics that can be logged into Cloudwatch, logs API actions to cloudtrail
+- Each AWS account has a public and private registry. Registries have repos, repos have container images.
+- Public registries allow read-only access to all. read-write needs explicit permission. Private registries require permissions for everything. 
 - Offers container image replication in cross-region and cross-account. 
+- Offers close to real time metrics that can be logged into Cloudwatch.
+- logs API actions to cloudtrail.
 
 ## Kubernetes 101
 ### Clusters
