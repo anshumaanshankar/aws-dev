@@ -1,10 +1,10 @@
 # TOPICS COVERED
-- Virtualization 101
-- Architecture and Resilience
-- Instance Types
-- Storage Refresher
-- ELastic Block Store (EBS) Service Architecture
-- EBS Volume Types
+- [Virtualization 101](#virtualization-101)
+- [Architecture and Resilience](#architecture-and-resilience)
+- [Instance Types](#instance-types)
+- [Storage Refresher](#storage-refresher)
+- [ELastic Block Store (EBS) Service Architecture](#ebs-service-architecture)
+- [EBS Volume Types](#ebs-volume-types)
 
 ## Virtualization 101
 **Definition**: Running more than one operating system on a piece of hardware. Allows multiple "previleged applications" to run on the same hardware. That is, diff apps on diff operating systems. 

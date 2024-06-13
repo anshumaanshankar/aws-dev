@@ -1,6 +1,6 @@
 # TOPICS COVERED
 - [Bootstraping EC2 using User Data](#bootstrapping-ec2-using-user-data)
-- EC2 Instance roles and profiles
+- [EC2 Instance roles and profiles](#ec2-instance-roles-and-profiles)
 - SSM Parameter Store
 - System and Application Logging on EC2
 - EC2 placement groups
@@ -23,3 +23,5 @@ We can do this with user data, which is a piece of information we pass to the in
 - `Time to provision an instance + Post launch time (time taken to update software and configs).`
 - Time to provision an instance is usually in minutes. Post launch time depends on whether the update is manual or automated.
 - Using AMI Baking for time intensive processes and bootstrapping final configs is the most time efficient way to reduce post launch time. 
+
+## EC2 Instance roles and profiles
