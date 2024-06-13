@@ -60,4 +60,4 @@
 
 ## Cloudwatch and Cloudwatch Logs
 - We neeed a cloudwatch agent to store metrics from external applications and on-premise servers. Some AWS services directly publish metrics on CW.
-- Moving data from CW logs to S3 is **NOT** realtime. 
+- Moving data from CW logs to S3 is **NOT** realtime by itself. We can use Kenesis Data Firehose in conjunction with subscription filters to make it near realtime.  
